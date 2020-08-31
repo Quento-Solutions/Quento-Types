@@ -44,9 +44,10 @@ export interface Question_t_F
     userId : string;
     userDisplayName : string;
 }
-export type Question_t_A = Question_t_F &
+export type Question_t_A = Omit<Question_t_F, "createdAt"> &
 {
-    createdAt : Date_t_A
+    createdAt : Date_t_A | Date;
+    gradeName : string
     objectID : string;
 }
 
@@ -75,6 +76,12 @@ export class Question
     {
         const {id, ...firebaseDoc} = {...question}
         return firebaseDoc
+    }
+    static toAlgolia = (note : Question, objectID : string) : Question_t_A =>
+    {
+        const {id, grade, ...firebaseDoc} = {...note}
+        const gradeName = typeof grade === "number" ? "Grade " + grade : grade;
+        return {...firebaseDoc, objectID, grade, gradeName }
     }
 }
 export interface Question extends Question_t {}
