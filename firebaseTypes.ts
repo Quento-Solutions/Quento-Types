@@ -1,8 +1,7 @@
-export interface Date_t_F
-{
-    seconds : number;
-    nanoseconds : number
-}
+import type { firestore } from "firebase-admin";
+
+export type Date_t_F =  firestore.Timestamp;
+
 export interface Date_t_A
 {
     _seconds : number;
