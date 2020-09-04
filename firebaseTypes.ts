@@ -1,6 +1,6 @@
-import type { firestore } from "firebase-admin";
+import { Timestamp } from "./env.utils";
 
-export type Date_t_F =  firestore.Timestamp;
+export type Date_t_F =  Timestamp;
 
 export interface Date_t_A
 {

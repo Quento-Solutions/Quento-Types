@@ -1,7 +1,6 @@
 import { Subject_O, Grade_O } from "./subjects";
 import { Date_t_F, Date_t_A, firebaseDate, StoredImage } from "./firebaseTypes";
-import { firestore } from "firebase-admin";
-
+import { Timestamp } from './env.utils'
 export interface Note_t {
   title: string;
   uid: string;
@@ -18,6 +17,10 @@ export interface Note_t {
 
   subject: Subject_O;
   grade: Grade_O;
+  magicRank ?: number;
+  deteriorate?: number
+  school ?: string;
+
   id?: string;
 }
 export interface Note_t_F {
@@ -35,8 +38,14 @@ export interface Note_t_F {
   upVotes: number;
   subject: Subject_O;
   grade: Grade_O;
+  magicRank ?: number;
+  school ?: string;
+  deteriorate?: number
   views: number;
+
+  updatedAt ?: Timestamp
 }
+
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type Note_t_A = Omit<Note_t_F, "createdAt"> & {
   createdAt: Date_t_A | Date;
@@ -56,7 +65,7 @@ export class Note {
   };
 
   static toFirebase = (note: Note): Note_t_F => {
-    const createdAt = firestore.Timestamp.fromDate(note.createdAt);
+    const createdAt = Timestamp.fromDate(note.createdAt);
     const { id, ...firebaseDoc } = { ...note };
     return { ...firebaseDoc, createdAt };
   };
