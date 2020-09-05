@@ -47,6 +47,8 @@ export interface Question_t_F
     updatedAt ?: Timestamp
     deteriorate?: number
     magicRank ? : number;
+
+    private ?: boolean
 }
 export type Question_t_A = Omit<Question_t_F, "createdAt"> &
 {
@@ -67,7 +69,7 @@ export class Question
     static fromFirebase = (doc : Question_t_F, id ?: string) =>
     {
 
-        const obj = {...doc, createdAt : firebaseDate(doc.createdAt as Date_t_F), id};
+        const obj = {...doc, createdAt : firebaseDate(doc.createdAt), id};
         return new Question(obj)
     }
     static fromAlgolia = (doc : Question_t_A) =>

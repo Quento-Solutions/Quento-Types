@@ -44,6 +44,7 @@ export interface Note_t_F {
   views: number;
 
   updatedAt ?: Timestamp
+  private ?: boolean
 }
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
