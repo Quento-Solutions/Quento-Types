@@ -1,6 +1,6 @@
 import {Date_t_F, Date_t_A, firebaseDate, algoliaDate, StoredImage} from './firebaseTypes';
 import type {Keyword_O, Subject_O , Grade_O} from './subjects'
-
+import { Timestamp } from './env.utils'
 
 export interface Question_t
 {
@@ -27,7 +27,7 @@ export interface Question_t
 
 export interface Question_t_F
 {
-    createdAt : Date_t_F | Date;
+    createdAt : Date_t_F;
     
     title : string;
     contents : string;
@@ -43,6 +43,10 @@ export interface Question_t_F
     userPhotoUrl ?: string;
     userId : string;
     userDisplayName : string;
+    school ?: string;
+    updatedAt ?: Timestamp
+    deteriorate?: number
+    magicRank ? : number;
 }
 export type Question_t_A = Omit<Question_t_F, "createdAt"> &
 {
@@ -74,8 +78,9 @@ export class Question
 
     static toFirebase(question : Question) : Question_t_F
     {
+        const createdAt = Timestamp.fromDate(question.createdAt);
         const {id, ...firebaseDoc} = {...question}
-        return firebaseDoc
+        return {...firebaseDoc, createdAt}
     }
     static toAlgolia = (note : Question, objectID : string) : Question_t_A =>
     {

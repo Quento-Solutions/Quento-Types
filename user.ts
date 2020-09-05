@@ -48,4 +48,6 @@ export interface UserData {
   notifications?: boolean
   
   lastFeedUpdated ?: Timestamp
+
+
 }
