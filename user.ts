@@ -47,6 +47,12 @@ export interface UserData {
 
   notifications?: boolean
   
+  metadata : {
+    createdAt : Timestamp;
+    lastSignInTime : Timestamp;
+    lastRefreshTime : Timestamp | null;
+  }
+
   lastFeedUpdated ?: Timestamp
 
 
